@@ -1,1 +1,10 @@
-[{"username":"Mani","password":"$2b$10$Lfr3JGsZtHWlL0MiGNutP.iTPevjf8eiUVmFxuNUnCkdmlEjKLu46"}]
+[
+  {
+    "username": "Mani",
+    "password": "$2b$10$Lfr3JGsZtHWlL0MiGNutP.iTPevjf8eiUVmFxuNUnCkdmlEjKLu46"
+  },
+  {
+    "username": "Mani1",
+    "password": "$2b$10$X4u5LdmHmGW1xOBnPPPiguQvs3QH73Sp42rJSU1M3jSM52cbyXlI6"
+  }
+]
