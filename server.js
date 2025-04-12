@@ -19,6 +19,7 @@ app.use('/',express.static(path.join(__dirname, '/public')));
 
 //routes
 app.use('/', require('./routes/root'));
+app.use('/register', require('./routes/register'));
 app.use('/employees', require('./routes/api/employees')); // Serve static files from the 'views/subdir' directory
 
 app.use((req, res) => {
