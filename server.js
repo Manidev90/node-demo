@@ -8,9 +8,10 @@ const { logger } = require('./middleware/logEvents'); // Import the logEvents mi
 const errorHandler = require('./middleware/errorHandler'); // Import the errorHandler middleware
 const verifyJWT = require('./middleware/verifyJWT'); // Import the verifyJWT middleware
 const cookieParser = require('cookie-parser'); // Import the cookie-parser middleware
+const credentials = require('./middleware/credentials');
 // custom middleware logger
 app.use(logger);
-
+app.use(credentials); // Use the credentials middleware to set CORS headers for allowed origins
 app.use(cors(corsOptions)); // Enable CORS for all routes
 app.use(express.urlencoded({ extended: false })); // Middleware to parse URL-encoded data
 app.use(express.json()); // Middleware to parse JSON data
@@ -25,6 +26,7 @@ app.use('/', require('./routes/root'));
 app.use('/register', require('./routes/register'));
 app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
+app.use('/logout', require('./routes/logout'));
 app.use(verifyJWT); // Use the verifyJWT middleware for all routes below this line
 app.use('/employees', require('./routes/api/employees')); // Serve static files from the 'views/subdir' directory
 

@@ -7,6 +7,8 @@ require('dotenv').config(); // Import the dotenv module for environment variable
 
 const handleRefreshToken = (req, res) => {
   const cookies = req.cookies; // Get the cookies from the request
+  console.log(cookies); // Log the cookies to the console for debugging
+  
   if(!cookies?.jwt) return res.sendStatus(401); // If no refresh token, send a 401 Unauthorized status
   const refreshToken = cookies.jwt; // Get the refresh token from the cookies
   const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken); // Find the user in the database

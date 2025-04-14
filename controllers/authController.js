@@ -36,7 +36,7 @@ const handleLogin = async (req, res) => {
       JSON.stringify(usersDB.users) // Write the updated users data to the file
     );
     //send JWTs to the user
-    res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000, sameSite: 'None', secure: true }); // Set the refresh token as a cookie in the response
+    res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 }); // Set the refresh token as a cookie in the response
     res.json({ accessToken }); // Send the access token in the response
     //res.status(200).json({ 'success': `User ${user} is logged in!` }); // If it matches, send a 200 OK status with a success message
   } else {
