@@ -15,7 +15,10 @@ const handlenewUser = async (req, res) => {
   try{
     //encrypt the password
     const hashedPwd = await bcrypt.hash(password, 10); // Hash the password with a salt rounds of 10
-    const newUser = { "username": user, "password": hashedPwd }; // Create a new user object with the hashed password
+    const newUser = { 
+      "username": user,
+      "roles" : { "user": 2001 }, // Assign a default role to the new user
+      "password": hashedPwd }; // Create a new user object with the hashed password
     usersDB.setUsers([...usersDB.users, newUser]); // Add the new user to the users array
     await fsPromises.writeFile(path.join(__dirname, '..', 'model', 'users.json'), JSON.stringify(usersDB.users)); // Write the updated users array to the JSON file
     res.status(201).json({ 'success': `New user ${user} created!` }); // Send a 201 Created status with a success message
@@ -24,9 +27,4 @@ const handlenewUser = async (req, res) => {
   }
 }
 
-const handleLogout = (req, res) => {
-  // On successful response, the client would delete the access and refresh tokens
-  res.status(204).json({ 'message': 'User logged out' }); // Send a 204 No Content status with a message
-}
-
-module.exports = { handlenewUser, handleLogout }; // Export the functions for use in other modules
+module.exports = { handlenewUser}; // Export the functions for use in other modules

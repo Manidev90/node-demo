@@ -16,14 +16,27 @@ const handleLogin = async (req, res) => {
   //evaluate password
   const match = await bcrypt.compare(password, foundUser.password); // Compare the provided password with the hashed password in the database
   if (match) {
+    const roles = Object.values(foundUser.roles); // Get the roles of the found user
+    console.log(roles, "authController"); // Log the roles for debugging
+    
     //create JWTs
     const accessToken = jwt.sign(
-      { "username": foundUser.username }, // Payload containing the username
+      {
+        "UserInfo": {
+            "username": foundUser.username,
+            "roles": roles
+        }
+      },
       process.env.ACCESS_TOKEN_SECRET, // Secret key for signing the token
       { expiresIn: '30s' } // Token expiration time
     );
     const refreshToken = jwt.sign(
-      { "username": foundUser.username }, // Payload containing the username
+      { 
+        "UserInfo": {
+          "username": foundUser.username,
+          "roles": roles // Include the user's roles in the payload 
+        }, // Payload containing the username
+      },
       process.env.REFRESH_TOKEN_SECRET, // Secret key for signing the token
       { expiresIn: '1d' } // Token expiration time
     );

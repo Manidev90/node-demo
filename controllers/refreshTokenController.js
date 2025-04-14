@@ -19,8 +19,14 @@ const handleRefreshToken = (req, res) => {
     process.env.REFRESH_TOKEN_SECRET,
     (err, decoded) => {
       if (err || foundUser.username !== decoded.username) return res.sendStatus(403); // If verification fails or username doesn't match, send a 403 Forbidden status
+      const roles = Object.values(foundUser.roles); // Get the roles of the found user
       const accessToken = jwt.sign(
-        { "username": decoded.username }, // Payload containing the username
+        { 
+          "UserInfo": {
+            "username": decoded.username,
+            "roles": roles // Include the user's roles in the payload 
+          }, // Payload containing the username and roles
+        },
         process.env.ACCESS_TOKEN_SECRET, // Secret key for signing the token
         { expiresIn: '30s' } // Token expiration time
       );

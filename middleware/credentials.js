@@ -1,4 +1,4 @@
-const allowedOrigins = require('./allowedOrigins'); // Import the whitelist of allowed origins
+const allowedOrigins = require('../config/allowedOrigins'); // Import the whitelist of allowed origins
 
 const credentials = (req, res, next) => {
   const origin = req.headers.origin; // Get the origin of the request from the headers
